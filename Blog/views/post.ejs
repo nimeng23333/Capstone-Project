@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+
+<h1>Post</h1>
+<% if (locals.post){ %>
+  <form action="/editsubmit" method="POST">
+    <input name="id" type="hidden" value="<%= post.id %>">
+    <input name="title" type="text" class="post-input" placeholder="Article title" value="<%= post.title %>" required/>
+    <input name="auther" type="text" class="post-input" placeholder="Auther" value="<%= post.auther %>" required/>
+    <textarea name="text" class="post-input" placeholder="Content" required><%= post.text %></textarea>
+    <input type="submit" value="SUBMIT" />
+  </form>
+<% }else{ %>
+  <form action="/submit" method="POST">
+    <input name="title" type="text" class="post-input" placeholder="Article title" required/>
+    <input name="auther" type="text" class="post-input" placeholder="Auther" required/>
+    <textarea name="text" class="post-input" placeholder="Content" required></textarea>
+    <input type="submit" value="SUBMIT" />
+  </form>
+  <% } %>
+
+<%- include("partials/footer.ejs") %>

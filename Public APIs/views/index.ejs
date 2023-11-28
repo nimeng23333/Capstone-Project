@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <!-- CSS -->
+        <!-- bootstrap -->
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <!-- custom CSS -->
+        <link rel="stylesheet" href="/styles/main.css">
+        <title>Public APIs Query</title>
+        <link rel="Shortcut Icon" href="src/img/favicon.ico"/>
+    </head>
+    <body data-bs-spy="scroll" data-bs-target="#sidebar" data-bs-smooth-scroll="true" tabindex="0" data-bs-offset="200">
+        <!-- navbar -->
+        <nav class="navbar text-bg-dark sticky-top shadow">
+            <div class="container-fluid">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis-dark text-decoration-none text-opacity-75">
+                    <img src="/src/img/logo.png" alt="public api logo" class="logo"><span class="fs-4">Public APIs</span>
+                </a>
+
+                <div class="dropstart">
+                    <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-filter"></i>Filter
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <span class="filter-reset">reset</span>
+                        <li class="li-content"><h6>Auth</h6></li>
+                        <li class="li-content"><input type="checkbox" id="Auth-no" name="Auth"><label for="Auth-no">No</label></li>
+                        <li class="li-content"><input type="checkbox" id="Auth-apiKey" name="Auth"><label for="Auth-apiKey">apiKey</label></li>
+                        <li class="li-content"><input type="checkbox" id="Auth-OAuth" name="Auth" ><label for="Auth-OAuth">OAuth</label></li>
+                        <li class="li-content"><input type="checkbox" id="Auth-X-Mashape-Key" name="Auth" ><label for="Auth-X-Mashape-Key">X-Mashape-Key</label></li>
+                        <li class="li-content"><input type="checkbox" id="Auth-User-Agent" name="Auth" ><label for="Auth-User-Agent">User-Agent</label></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li class="li-content"><h6>HTTPS</h6></li>
+                        <li class="li-content"><input type="checkbox" id="HTTPS-yes" name="HTTPS" ><label for="HTTPS-yes">Yes</label></li>
+                        <li class="li-content"><input type="checkbox" id="HTTPS-no" name="HTTPS" ><label for="HTTPS-no">No</label></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li class="li-content"><h6>Cors</h6></li>
+                        <li class="li-content"><input type="checkbox" id="Cors-yes" name="Cors" ><label for="Cors-yes">Yes</label></li>
+                        <li class="li-content"><input type="checkbox" id="Cors-no" name="Cors" ><label for="Cors-no">No</label></li>
+                        <li class="li-content"><input type="checkbox" id="Cors-unknown" name="Cors" ><label for="Cors-unknown">Unknown</label></li>
+                    </ul>
+                </div>
+                
+                <div class="toggle-search">
+                    <div class="svg-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                    <form class="form-inline search-full form-inline search" role="search">
+                        <div class="search-bar">
+                            <input type="text" class="form-control form-control-dark search-form-control ds-input ml-lg-auto" id="search-input" placeholder="Search...">
+                            <div class="svg-container search-delete">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x search-close"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </div>
+                        </div>
+                    </form>
+                    <span class="badge badge-secondary">Ctrl + /</span>
+                </div>
+            </div>
+        </nav>
+        <!-- end navbar -->
+
+        <!-- main content -->
+        <div class="main-container" id="container">
+            <!-- sidebar -->
+            <div class="sidebar-wrapper sidebar-theme scrollarea">
+                <nav id="sidebar" class="navbar">
+                    <ul class="nav-pills list-unstyled menu-categories ps">
+                        <% categories.forEach((e) =>{ %>
+                            <li class="menu nav-item">
+                                <a class="nav-link sidebar-toggle" href="#<%= e.replace(/[^a-zA-Z0-9]/g , '') %>">
+                                <span class="fs-6"><%= e %></span>
+                                </a>
+                            </li>
+                        <%})%>
+                    </ul>
+                </nav>
+            </div>
+
+
+            <!-- table -->
+            <div id="content" class="main-content">
+                <div class="layout-px-spacing">
+                    <div class="middle-content container-xxl p-0 searchable-container">
+                        <div class="row layout-top-spacing">
+                            <% for (let e in categorizedAPI){ %>
+                            <div id="<%= e.replace(/[^a-zA-Z0-9]/g , '') %>" class="col-lg-12 col-md-12 layout-spacing category">
+                                <div class="api box box-shadow">
+                                    <div class="api-header">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h4><%= e %></h4>
+                                            </div>          
+                                        </div>
+                                    </div>
+                                    <div class="api-content api-content-area">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered mb-4 table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">API</th>
+                                                        <th class="text-center">Description</th>
+                                                        <th class="text-center">Auth</th>
+                                                        <th class="text-center">HTTPS</th>
+                                                        <th class="text-center">CORS</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% for (let i =0;i <categorizedAPI[e].length; i++){ 
+                                                            let http,auth;
+                                                            if(categorizedAPI[e][i].HTTPS == true){
+                                                                http = "yes" 
+                                                            }else{ 
+                                                                http = "no"
+                                                            } 
+                                                            if(categorizedAPI[e][i].Auth == ""){
+                                                                auth = "no"
+                                                            }else{
+                                                                auth = categorizedAPI[e][i].Auth
+                                                            } %>
+                                                        <tr class="api-list-item">
+                                                            <td ><a href="<%= categorizedAPI[e][i].Link %>" class="fs-6"><%= categorizedAPI[e][i].API %></a></td>
+                                                            <td ><%= categorizedAPI[e][i].Description %></td>
+                                                            <td class="text-center"><span class="badge Auth-<%= auth %>"><%= auth %></span></td>
+                                                            <td class="text-center"><span class="badge HTTPS-<%= http %> "><%= http %></span></td>
+                                                            <td class="text-center"><span class="badge Cors-<%= categorizedAPI[e][i].Cors %>"><%= categorizedAPI[e][i].Cors %></span></td>
+                                                        </tr>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- footer -->
+                <div class="footer-wrapper">
+                    <div class="footer-section f-section-1">
+                        <p class="">Copyright © <span class="dynamic-year"><%= new Date().getFullYear() %></span>, All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        
+    
+        
+        <!-- js code -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/function/main.js"></script>
+    </body>
+</html>

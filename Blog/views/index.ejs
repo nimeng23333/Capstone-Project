@@ -1,0 +1,53 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+	<div class="row justify-content-between">
+		<div class="col-md-12">
+			<h5 class="font-weight-bold spanborder"><span>All Stories</span></h5>
+            <!-- 显示文章列表 -->
+            <% postdata.forEach((e) =>{ %>
+                <div class="mb-3 d-flex justify-content-between">
+                    <div class="pr-3 col-12 pl-0">
+                        <h2 class="mb-1 h4 font-weight-bold">
+                        <a class="text-dark" href="/article/<%= e.id %>"><%= e.title %></a>
+                        <form class="invisible float-right edit-tool ml-2" action="/delete" method="POST">
+                            <input type="hidden" name="id" value="<%= e.id %>">
+                            <button class="grey-btn" type="submit"><i class="fa-solid fa-trash small"></i></button>                            
+                        </form>
+                        <form class="invisible float-right edit-tool ml-2" action="/edit/<%= e.id %>" method="GET">
+                            <input type="hidden" name="id" value="<%= e.id %>">
+                            <button class="grey-btn" type="submit"><i class="fa-regular fa-pen-to-square small"></i></button>                            
+                        </form>
+                        </h2>
+                        <p>
+                            <%= e.text %>
+                        </p>
+                        <div class="card-text text-muted small">
+                            <%= e.auther %>
+                        </div>
+                        <small class="text-muted"><%= e.month %> <%= e.day %> &middot; <%= e.year %></small>
+                    </div>
+                </div>
+            <% }) %>
+		</div>
+	</div>
+
+    <!-- pagenation -->
+
+    <nav aria-label="Page navigation" style="margin-top: 50px" id= "page-nav" data-total="<%= total %>">
+        <% if (locals.pageId){ %>
+            <input type="text" name="pagenumber" value="<%= pageId %>" hidden />
+        <% }else{ %>
+            <input type="text" name="pagenumber" value="1" hidden />
+        <% } %>
+        
+        <ul class="pagination"></ul>
+    </nav>
+
+</div>
+
+
+
+
+<%- include("partials/footer.ejs") %>
+<script src="../function/pagenation.js"></script>

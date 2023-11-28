@@ -1,0 +1,140 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+header,
+footer {
+  flex: 0 0 auto;
+}
+
+main {
+  padding: 5vmin;
+  flex: 1 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  color: grey;
+}
+
+form {
+  margin-top: 50px;
+}
+
+.post-input {
+  color: black;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 5px;
+  line-height: 22px;
+  background-color: transparent;
+  border: 2px solid #3586ff;
+  transition: all 0.3s;
+  padding: 13px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+.post-input:focus {
+  border: 2px solid #3586ff;
+}
+
+textarea {
+  height: 300px;
+  line-height: 150%;
+  resize: vertical;
+}
+
+[type="submit"] {
+  width: 100%;
+  background: #3586ff;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: all 0.3s;
+  margin-top: -4px;
+  font-weight: 700;
+}
+[type="submit"]:hover {
+  background: #3586ff;
+}
+
+.grey-btn{
+  width: auto;
+  background-color: initial;
+  margin:0;
+  padding:5px 0 ;
+}
+.grey-btn:hover{
+  background: #ccc;
+}
+
+.grey-btn i{
+  margin:0 5px;
+}
+
+ol.list-featured {
+  counter-reset: my-awesome-counter;
+  list-style: none;
+  padding-left: 0; }
+
+ol.list-featured li {
+  counter-increment: my-awesome-counter;
+  display: flex;
+  font-size: 0.8rem; }
+
+ol.list-featured li:before {
+  content: "0" counter(my-awesome-counter);
+  font-weight: bold;
+  font-size: 3rem;
+  margin-right: 0.5rem;
+  font-family: 'Abril Fatface', serif;
+  line-height: 1; }
+
+.spanborder {
+  border-bottom: 1px solid #e8f3ec;
+  margin-bottom: 2rem; }
+  
+.spanborder span {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.44);
+  display: inline-block;
+  padding-bottom: 20px;
+  margin-bottom: -1px; }
+
+article p, article pre, article figure, article img, article blockquote, article iframed, article embed {
+  font-family: "sans-serif", "Georgia";
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 2rem; 
+  color: black;}
+article blockquote {
+  padding-left: 40px;
+  margin-left: 0px;
+  font-style: italic;
+  position: relative; }
+article blockquote:before {
+  content: "“";
+  font-family: Georgia;
+  font-size: 8rem;
+  margin: -1rem 2rem 0 -3.9rem;
+  position: absolute;
+  opacity: 1;
+  float: left;
+  line-height: 1; }
+article:first-letter {
+  float: left;
+  font-size: 5em;
+  line-height: 1;
+  margin: 0 .2em 0 0;
+  vertical-align: top; }
