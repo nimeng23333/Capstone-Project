@@ -1,0 +1,49 @@
+   <!-- Search
+   <div class="widget">
+      <h5 class="widget-title"><span>Search</span></h5>
+      <form action="/logbook-hugo/search" class="widget-search">
+         <input id="search-query" name="s" type="search" placeholder="Book name, isbn etc..">
+         <button type="submit"><i class="ti-search"></i>
+         </button>
+      </form>
+   </div> -->
+   <!-- categories -->
+   <div class="widget">
+      <h5 class="widget-title"><span>Categories</span></h5>
+      <ul class="list-unstyled widget-list">
+         <li><a href="/filter?category=0" class="d-flex">All
+               <small class="ml-auto">(<%= total %>)</small></a>
+         </li>
+         <% categories.forEach((cate) =>{ %>
+         <li><a href="/filter?category=<%= cate.categoryId %>" class="d-flex"><%= cate.name.slice(0,1).toUpperCase() + cate.name.slice(1) %>
+               <small class="ml-auto">(<%= cate.length %>)</small></a>
+         </li>
+         <%})%>
+      </ul>
+   </div>
+   <!-- tags -->
+   <div class="widget">
+      <h5 class="widget-title"><span>Tags</span></h5>
+      <ul class="list-inline widget-list-inline">
+         <% tags.forEach((tag) =>{%>
+            <li class="list-inline-item">
+               <input type="checkbox" name="tag" class="btn-check" id="tag-<%= tag.id %>" value="<%= tag.name.slice(0,1).toUpperCase() + tag.name.slice(1) %>">
+               <label for="tag-<%= tag.id %>" class="btn btn-outline-primary btn-new"><%= tag.name.slice(0,1).toUpperCase() + tag.name.slice(1) %></label>
+            </li>
+         <%}); %>
+      </ul>
+   </div>
+
+      <!-- sort filter -->
+      <div class="widget">
+         <h5 class="widget-title"><span>Sort by</span></h5>
+         <ul class="list-unstyled widget-list">
+            <li><a href="/filter?category=<%= currentCategory %>&sort=1" class="d-flex">Newest → Oldest</a></li>
+            <li><a href="/filter?category=<%= currentCategory %>&sort=2" class="d-flex">Oldest → Newest</a></li>
+            <li><a href="/filter?category=<%= currentCategory %>&sort=3" class="d-flex">Rating  5<span style="color: #f8ab2e;">★ </span> → 0<span style="color: #f8ab2e;">☆</span></a></li>
+            <li><a href="/filter?category=<%= currentCategory %>&sort=4" class="d-flex">Rating  0<span style="color: #f8ab2e;">☆ </span> → 5<span style="color: #f8ab2e;">★</span></a></li>
+            <li><a href="/filter?category=<%= currentCategory %>&sort=5" class="d-flex">Book name  0 → Z</a></li>
+            <li><a href="/filter?category=<%= currentCategory %>&sort=6" class="d-flex">Book name  Z → 0</a></li>
+
+         </ul>
+      </div>

@@ -1,0 +1,44 @@
+<%- include ("partials/header.ejs") %>
+<%- include ("partials/navigation.ejs") %>
+
+<section class="section">
+	<div class="container">
+		<article class="row mb-4">
+			<div class="col-lg-10 mx-auto mb-4">
+				<h1 class="h2 mb-3"><%= notes.title %></h1>
+				<ul class="list-inline post-meta mb-3">
+					<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="/"><%= notes.auther %></a>
+					</li>
+					<li class="list-inline-item">Date : <%= new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit'}).format(notes.date_read) %></li>
+					<li class="list-inline-item">Categories : <a href="#!" class="ml-1">Photography </a>
+					</li>
+					<li class="list-inline-item">Tags : <a href="#!" class="ml-1"><%= notes.category.slice(0,1).toUpperCase() + notes.category.slice(1) %> </a>
+					</li>
+                    <li class="list-inline-item">Rating : <div class="stars-container" title="score=<%= notes.rating %>"><div class="stars" style="width: <%= notes.rating*8.5%>%;">★★★★★</div></div>
+                    </li>
+				</ul>
+			</div>
+			<div class="col-10 mb-3 mx-auto">
+				<div class="post-slider">
+					<img src="<%= notes.img %>" class="img-fluid" alt="post-thumb">
+				</div>
+			</div>
+			<div class="col-lg-10 mx-auto">
+				<div class="content">
+					<p><%= notes.intro %></p>
+                    <h2 class="h3 mb-3">Note</h2>
+                    <div id="articleContainer"></div>
+				</div>
+			</div>
+		</article>
+	</div>
+</section>
+
+
+<%- include ("partials/footer.ejs") %>
+<script>
+    let notes = <%- JSON.stringify(notes.note) %>;
+    //article paragraphing
+    let htmlArticle = notes.split("\n").map(paragraph => `<p>${paragraph}</p>`).join("");
+    $("#articleContainer").html(htmlArticle);
+</script>

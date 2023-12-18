@@ -1,0 +1,51 @@
+<%- include ("partials/header.ejs") %>
+<%- include ("partials/navigation.ejs") %>
+
+<section class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8  mb-5 mb-lg-0">
+				<h1 class="mb-30 h-underline"><%= title.slice(0,1).toUpperCase() + title.slice(1) %></h1>
+
+				<% notes.forEach((note) =>{ %>
+				<article class="row mb-5" id="post-<%= note.id %>">
+					<div class="col-12">
+						<div class="post-slider">
+							<a class="post-title" href="/post-details/<%= note.id %>"><img loading="lazy" src="<%= note.img %>" class="img-fluid" alt="post-thumb"></a>
+						</div>
+					</div>
+					<div class="col-12 mx-auto" style="margin-top: 20px;">
+						<h3><a class="post-title" href="/post-details/<%= note.id %>"><%= note.title %></a></h3>
+						<ul class="list-inline post-meta mb-4">
+							<li class="list-inline-item"><i class="ti-user mr-2"></i><a href="/"><%= note.auther %></a>
+							</li>
+							<li class="list-inline-item">Date : <%= new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit'}).format(note.date_read) %></li>
+							<li class="list-inline-item">Categories : <a href="/filter?category=<%= note.category_id %>" class="ml-1"><%= note.category.slice(0,1).toUpperCase() + note.category.slice(1) %> </a>
+							</li>
+							<li class="list-inline-item">Tags : <% note.tags.forEach(function(tag,idx,array) { if (idx === array.length - 1) {%>
+								<span class="tag-<%= tag.tagId %>"><%= tag.tagName.slice(0,1).toUpperCase() + tag.tagName.slice(1) %></span>
+								<%}else{%>
+									<span class="tag-<%= tag.tagId %>"><%= tag.tagName.slice(0,1).toUpperCase() + tag.tagName.slice(1) %></span>,
+							<%}}) %>
+							</li>
+							<li class="list-inline-item">Rating : <div class="stars-container" title="score=<%= note.rating %>"><div class="stars" style="width: <%= note.rating*8.5%>%;">★★★★★</div></div>
+							</li>
+						</ul>
+						<p><%= note.intro %></p> <a href="/post-details/<%= note.id %>" class="btn btn-outline-primary">Continue Reading</a>
+					</div>
+				</article>
+
+				<%})%>
+
+			</div>
+			<aside class="col-lg-4 filter">
+				<%- include ("partials/sidebar.ejs") %>
+			</aside>
+		</div>
+	</div>
+</section>
+
+
+
+
+<%- include ("partials/footer.ejs") %>

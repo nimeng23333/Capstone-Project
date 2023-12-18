@@ -1,0 +1,94 @@
+<%- include ("partials/header.ejs") %>
+<%- include ("partials/navigation.ejs") %>
+
+<section class="section-sm">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1">
+				<div class="title-bordered mb-5 d-flex align-items-center">
+					<h1 class="h4">New Note</h1>
+				</div>
+			</div>
+			<div class="col-lg-10 offset-lg-1">
+				<form method="POST" action="#">
+					<div class="form-group">
+						<label for="bookname">Book name</label>
+						<input type="text" name="bookname" id="bookname" class="form-control" required autocomplete="off">
+						<label></label>
+					</div>
+					<div class="form-group">
+						<label for="ISBN">ISBN</label>
+						<input type="number" name="ISBN" id="ISBN" class="form-control" min="100000000" max="9999999999999" required autocomplete="off">
+						<label></label>
+					</div>
+                    <div class="form-group">
+						<label for="auther">Auther</label>
+						<input type="text" name="auther" id="auther" class="form-control" required autocomplete="off">
+						<label></label>
+					</div>
+                    <div class="form-group">
+						<label for="date">Date you finish reading</label>
+						<input type="date" name="date" id="date" class="form-control" value="<%= new Intl.DateTimeFormat().format(new Date()).replace(/\//g,'-') %>">
+					</div>
+                    <div class="form-group">
+						<label for="category">Category</label>
+                        <br>
+                        <div class="category-bordered d-flex align-items-center">
+                            <ul class="list-inline widget-list-inline" style="margin-bottom: 0;">
+                                <% categories.forEach((cate) =>{ %>
+                                    <li class="list-inline-item-new">
+                                        <input type="radio" name="category" id="category-<%= cate.categoryId %>" class="btn-check" required value="<%= cate.name %>"><label for="category-<%= cate.categoryId %>" class="btn btn-outline-primary btn-new"><%= cate.name %></label>
+                                    </li>
+                                <% }) %>
+								<li class="list-inline-item-new add-set" id="newCategory-add">
+									<input id="newCategory-input" type="text" autocomplete="off" hidden="true" class="form-control form-new"/>
+									<button id="newCategory-done" class="btn btn-outline-primary btn-new" type="button" hidden><i class="ti-check"></i></button>
+									<button id="newCategory-close" class="btn btn-outline-primary btn-new" type="button" hidden><i class="ti-close"></i></button>
+									<button id="newCategory" class="btn btn-outline-primary btn-new" type="button"><i class="ti-plus"></i></button>
+								</li>
+                            </ul>
+                        </div>
+					</div>
+                    <div class="form-group">
+						<label for="category">Tags</label>
+                        <br>
+                        <div class="category-bordered d-flex align-items-center">
+                            <ul class="list-inline widget-list-inline" style="margin-bottom: 0;">
+                                <% tags.forEach((tag) =>{ %>
+                                    <li class="list-inline-item-new">
+                                    <input type="checkbox" name="tag" id="tag-<%= tag.id %>" class="btn-check" value="<%= tag.tag %>"><label for="tag-<%= tag.id %>" class="btn btn-outline-primary btn-new"><%= tag.tag %></label>
+                                    </li>
+                                <% }) %>
+								<li class="list-inline-item-new add-set" id="newTag-add" >
+									<input id="newTag-input" type="text" autocomplete="off" hidden="true" class="form-control form-new"/>
+									<button id="newTag-done" class="btn btn-outline-primary btn-new" type="button" hidden><i class="ti-check"></i></button>
+									<button id="newTag-close" class="btn btn-outline-primary btn-new" type="button" hidden><i class="ti-close"></i></button>
+									<button id="newTag" class="btn btn-outline-primary btn-new" type="button"><i class="ti-plus"></i></button>
+								</li>
+                            </ul>
+                        </div>
+					</div>
+					<div class="form-group">
+						<label for="rating">Book rating</label>
+						<div class="stars-container-add">
+							<input type="hidden" id="rating" name="rating" value="0">
+							<div class="stars" style="width: 0%;">★★★★★
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="intro">Introduction</label>
+						<textarea name="intro" id="intro" class="form-control"></textarea>
+					</div>
+                    <div class="form-group">
+						<label for="note">Note</label>
+						<textarea name="note" id="note" class="form-control"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Send Now</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<%- include ("partials/footer.ejs") %>
